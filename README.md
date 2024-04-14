@@ -22,13 +22,13 @@ __________________________________________________
 #### After i type the command, i can just call it when user was put the right email and password [TRUE] and if wrong [FALSE] it will refresh the page
 
 __________________________________________________
-![Dashboard](lib/dashboard.dart)
+![Dashboard](lib/asset/image/view_dashboard.png)
 ## Dashboard view
 #### When user type the right email and password, user will directly bring in to dashboard page. In dashboard page user can yout interact with 1 buttom [LOGOUT] thats button will directly bring users back to login page. this is the code that i command to
 ![Logout Button](lib/asset/image/LogoutButton.png)
 
 __________________________________________________
-[Sign Up Page](lib/signup_page.dart)
+![Sign Up page](lib/asset/image/view_signup.png)
 ## Sign up view
 #### At login page, when user press the [SIgn Up] button, they just directly moved to Sign Up page, and the photo was view from Sign Up page. im not putting some command or button thats spesial to this page
 
