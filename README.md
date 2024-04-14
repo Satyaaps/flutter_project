@@ -11,7 +11,7 @@ __________________________________________________
 6. Enjoy
 __________________________________________________
 ## This is what page looks like
-[Login page](lib/login_page.dart)
+![Login Page](lib/asset/image/view_login.png)
 ## Login Page
 #### This is login page looks like when you start to run flutter project, the generator will run the main.dart and just execute the login_page.dart for a sec
 __________________________________________________
