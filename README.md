@@ -11,3 +11,8 @@ __________________________________________________
 6. Enjoy
 __________________________________________________
 ## This is what page looks like
+C:\Users\satya\Documents\GitHub\flutter_project\lib\asset\image\view_login.png
+## Login Page
+#### This is login page looks like when you start to run flutter project, the generator will run the main.dart and just execute the login_page.dart for a sec
+
+![Login with acces](lib/asset/image/view_login_access.png)

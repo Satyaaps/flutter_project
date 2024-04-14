@@ -98,7 +98,7 @@ class SignupPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        backgroundColor: Colors.purple,
+                        backgroundColor: Color.fromARGB(255, 255, 255, 0),
                       ),
                     )),
                 const Center(child: Text("Or")),
@@ -140,7 +140,7 @@ class SignupPage extends StatelessWidget {
                           "Sign In with Google",
                           style: TextStyle(
                             fontSize: 16,
-                            color: Colors.purple,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                       ],
