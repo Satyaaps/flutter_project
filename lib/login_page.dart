@@ -80,10 +80,10 @@ class LoginPage extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Text(
-                    "Welcome back!",
-                    style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                  )
+//                  Text(
+//                    "Welcome back!",
+//                    style: TextStyle(fontSize: 15, color: const Color.fromARGB(255, 0, 0, 0)),
+//                  )
                 ],
               ),
               Column(
@@ -95,7 +95,8 @@ class LoginPage extends StatelessWidget {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(18),
                             borderSide: BorderSide.none),
-                        fillColor: Colors.purple.withOpacity(0.1),
+                        fillColor:
+                            Color.fromARGB(255, 190, 153, 197).withOpacity(0.1),
                         filled: true,
                         prefixIcon: const Icon(Icons.email)),
                   ),
@@ -107,7 +108,8 @@ class LoginPage extends StatelessWidget {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(18),
                           borderSide: BorderSide.none),
-                      fillColor: Colors.purple.withOpacity(0.1),
+                      fillColor:
+                          Color.fromARGB(255, 190, 153, 197).withOpacity(0.1),
                       filled: true,
                       prefixIcon: const Icon(Icons.password),
                     ),
@@ -126,7 +128,7 @@ class LoginPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Colors.purple,
+                    backgroundColor: Color.fromARGB(255, 255, 255, 0),
                   ),
                 ),
               ),
@@ -136,7 +138,7 @@ class LoginPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
-                    color: Colors.purple,
+                    color: const Color.fromARGB(255, 255, 255, 0),
                   ),
                   boxShadow: [
                     BoxShadow(
