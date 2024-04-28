@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'signup_page.dart'; // Impor halaman SignupPage
 import 'dashboard.dart';
+import 'package:get_storage/get_storage.dart';
 
 class LocalDatabase {
+  static final myStorage = GetStorage();
+
   static final Map<String, String> users = {
     // Tambahkan email dan password admin ke dalam database lokal
     'admin@gmail.com': 'PROGMOB',
