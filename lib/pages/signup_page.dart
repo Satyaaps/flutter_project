@@ -190,7 +190,7 @@ class _SignUpState extends State<SignUp> {
                               : BorderSide(
                               color: Color.fromRGBO(215, 252, 112, 1),
                             ),
-                            borderRadius:
+                            :borderRadius:
                                 BorderRadius.all(Radius.circular(16)),
                             suffixIcon: IconButton(
                               icon: Icon(
@@ -299,7 +299,7 @@ class _SignUpState extends State<SignUp> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const SignIn(),
+                            builder: (context) => const LoginPage(),
                           ),
                         );
                       },
@@ -316,8 +316,7 @@ class _SignUpState extends State<SignUp> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
 

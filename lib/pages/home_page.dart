@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutterproject/pages/profile_page.dart';
-import 'package:flutterproject/pages/team_page.dart';
+import 'package:flutter_project/pages/profile_page.dart';
+import 'package:flutter_project/pages/team_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
