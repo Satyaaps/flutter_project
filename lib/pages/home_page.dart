@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_project/pages/profile_page.dart';
 import 'package:flutter_project/pages/team_page.dart';
-import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:logger/logger.dart';
 
@@ -57,8 +57,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromRGBO(17, 17, 17, 1),
-      bottomNavigationBar: BottomNavBar(
-        onTabchange: (index) => navigateBottomBar(index),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            label: 'Team',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: navigateBottomBar,
       ),
       appBar: AppBar(
         backgroundColor: const Color.fromRGBO(0, 0, 0, 1),

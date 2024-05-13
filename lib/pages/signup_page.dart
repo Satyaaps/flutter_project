@@ -112,8 +112,7 @@ class _SignUpState extends State<SignUp> {
         _passwordController.text.contains(RegExp(r'[0-9]')) == false ||
         _passwordController.text.contains(RegExp(r'[A-Z]')) == false ||
         _passwordController.text.contains(RegExp(r'[a-z]')) == false ||
-        _passwordController.text
-                .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]')) ==
+        _passwordController.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]')) ==
             false ||
         _passwordController.text != _confirmPasswordController.text) {
       setState(() {
@@ -147,8 +146,8 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             children: [
               const SizedBox(height: 84),
-              PngPicture.asset(
-                'lib/asset/image/log-in.png',
+              SvgPicture.asset(
+                'lib/asset/image/log-in.svg',
                 semanticsLabel: 'Hero Image',
                 height: 200,
                 width: 200,
@@ -187,139 +186,134 @@ class _SignUpState extends State<SignUp> {
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(16)),
                                 ),
-                              : BorderSide(
-                              color: Color.fromRGBO(215, 252, 112, 1),
-                            ),
-                            :borderRadius:
-                                BorderRadius.all(Radius.circular(16)),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Colors.white,
-                              ),
-                              onPressed: swapPasswordVisibility,
-                            ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(215, 252, 112, 1)),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24),
-                        child: TextField(
-                          controller: _confirmPasswordController,
-                          obscureText: !_passwordVisible,
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            enabledBorder: _invalidPassword
-                                ? const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.red),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16)),
-                                  )
-                                : const OutlineInputBorder(
-                                    borderSide: BorderSide(color: Colors.grey),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(16)),
-                                  ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color.fromRGBO(215, 252, 112, 1),
-                              ),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(16)),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white,
                             ),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: Colors.white,
-                              ),
-                              onPressed: swapPasswordVisibility,
-                            ),
+                            onPressed: swapPasswordVisibility,
                           ),
-                          style: const TextStyle(color: Colors.white),
                         ),
-                      ),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: _invalidInput,
-                  child: Container(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: Center(
-                      child: Text(
-                        _warningText,
-                        style: const TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24),
-                  child: GestureDetector(
-                    onTap: onCreateAccountTap,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color.fromRGBO(215, 252, 112, 1),
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 16, horizontal: 114),
-                      child: const Text(
-                        'Create Account',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color.fromRGBO(27, 32, 51, 1),
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Montserrat',
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Already have an account?',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: TextField(
+                        controller: _confirmPasswordController,
+                        obscureText: !_passwordVisible,
+                        decoration: InputDecoration(
+                          labelText: 'Confirm Password',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          enabledBorder: _invalidPassword
+                              ? OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.red),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16)),
+                                )
+                              : OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(16)),
+                                ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: Color.fromRGBO(215, 252, 112, 1)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(16)),
                           ),
-                        );
-                      },
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white,
+                            ),
+                            onPressed: swapPasswordVisibility,
+                          ),
                         ),
+                        style: const TextStyle(color: Colors.white),
                       ),
-                    )
+                    ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Visibility(
+                visible: _invalidInput,
+                child: Container(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Center(
+                    child: Text(
+                      _warningText,
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: GestureDetector(
+                  onTap: onCreateAccountTap,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color.fromRGBO(215, 252, 112, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                    ),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 16, horizontal: 114),
+                    child: const Text(
+                      'Create Account',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Color.fromRGBO(27, 32, 51, 1),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat',
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Already have an account?',
+                    style: TextStyle(
+                      color: Colors.grey,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginPage(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Sign In',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
-}
-
-class PngPicture {
-  static asset(String s, {required String semanticsLabel, required int height, required int width}) {}
 }
