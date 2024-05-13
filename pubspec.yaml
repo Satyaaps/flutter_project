@@ -1,4 +1,4 @@
-name: project_1
+name: flutter_project
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 version: 1.0.0+1
 
-environment:
+environment: 
   sdk: '>=3.3.3 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
@@ -37,6 +37,7 @@ dependencies:
   timer_count_down: ^2.2.0
   email_validator: "^2.1.16"
   google_nav_bar: ^5.0.6
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:

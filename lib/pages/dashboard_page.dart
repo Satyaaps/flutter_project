@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'login_page.dart'; // Import halaman LoginPage
+import 'package:flutter_project/pages/login_page.dart';
 
 class Dashboard extends StatelessWidget {
   @override

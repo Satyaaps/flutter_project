@@ -45,6 +45,7 @@ class _TeamPageState extends State<TeamPage> {
 
   void _deleteMember(int memberId) async {
     try {
+      // ignore: unused_local_variable
       Response response = await Dio().delete('$_apiUrl/$memberId',
           options: Options(
               headers: {"Authorization": "Bearer ${myStorage.read("token")}"}));

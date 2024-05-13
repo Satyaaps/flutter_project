@@ -5,7 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
-import 'package:login_page.dart';
+import 'package:flutter_project/pages/login_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
