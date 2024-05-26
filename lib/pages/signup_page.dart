@@ -45,8 +45,8 @@ class _SignUpState extends State<SignUp> {
       final response = await dio.post(
         'https://mobileapis.manpits.xyz/api/register',
         data: {
-          'email': _emailController.text,
           'name': _usernameController.text,
+          'email': _emailController.text,
           'password': _passwordController.text,
         },
       );
@@ -168,6 +168,42 @@ class _SignUpState extends State<SignUp> {
                 padding: const EdgeInsets.only(left: 24, right: 24),
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: TextField(
+                        controller: _usernameController,
+                        decoration: InputDecoration(
+                          labelText: 'Name',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          enabledBorder: _invalidUsername
+                              ? const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.red),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16)),
+                                )
+                              : const OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.grey),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(16)),
+                                ),
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromRGBO(215, 252, 112, 1)),
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                          ),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _passwordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: Colors.white,
+                            ),
+                            onPressed: swapPasswordVisibility,
+                          ),
+                        ),
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 24),
                       child: TextField(

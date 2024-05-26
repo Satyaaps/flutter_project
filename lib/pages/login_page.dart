@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_project/pages/home_page.dart';
-import 'package:flutter_project/pages/signup_page.dart'; // Impor halaman SignupPage
+import 'package:flutter_project/pages/signup_page.dart';
+// import 'package:flutter_project/pages/home_page.dart';
+// import 'package:flutter_project/pages/signup_page.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:email_validator/email_validator.dart';
 import 'dart:async';
@@ -98,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: const Text('Login'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -109,17 +110,17 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Column(
+              const Column(
                 children: <Widget>[
-                  const SizedBox(height: 60.0),
-                  const Text(
+                  SizedBox(height: 60.0),
+                  Text(
                     "Login",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                 ],
@@ -134,8 +135,8 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(18),
                         borderSide: BorderSide.none,
                       ),
-                      fillColor:
-                          Color.fromARGB(255, 190, 153, 197).withOpacity(0.1),
+                      fillColor: const Color.fromARGB(255, 190, 153, 197)
+                          .withOpacity(0.1),
                       filled: true,
                       prefixIcon: const Icon(Icons.email),
                       errorText: _invalidEmail ? 'Invalid email' : null,
@@ -151,8 +152,8 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(18),
                         borderSide: BorderSide.none,
                       ),
-                      fillColor:
-                          Color.fromARGB(255, 190, 153, 197).withOpacity(0.1),
+                      fillColor: const Color.fromARGB(255, 190, 153, 197)
+                          .withOpacity(0.1),
                       filled: true,
                       prefixIcon: const Icon(Icons.password),
                       suffixIcon: IconButton(
@@ -195,7 +196,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    backgroundColor: Color.fromARGB(255, 255, 255, 0),
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 0),
                   ),
                 ),
               ),
@@ -220,9 +221,17 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
+                      MaterialPageRoute(builder: (context) => const SignUp()),
                     );
                   },
+                  // child: TextButton(
+                  //   onPressed: () {
+                  //     Navigator.push(
+                  //       context,
+                  //       MaterialPageRoute(
+                  //         builder: (context) => const SignUp()));
+                  //   },
+                  // ),
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(
