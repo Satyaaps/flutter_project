@@ -1,353 +1,163 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:email_validator/email_validator.dart';
-import 'package:get_storage/get_storage.dart';
-import 'dart:async';
-import 'package:dio/dio.dart';
-import 'package:logger/logger.dart';
+import 'package:flutter_project/pages/home_page.dart';
 import 'package:flutter_project/pages/login_page.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
-
-  @override
-  State<SignUp> createState() => _SignUpState();
-}
-
-class _SignUpState extends State<SignUp> {
-  bool _passwordVisible = false;
-  bool _invalidInput = false;
-  bool _invalidEmail = false;
-  bool _invalidUsername = false;
-  bool _invalidPassword = false;
-  String _warningText = '';
-
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
-
-  final myStorage = GetStorage();
-
-  void onCreateAccountTap() {
-    if (!emailValidator() || !passwordValidator()) {
-      return;
-    } else {
-      goRegister();
-    }
-  }
-
-  void goRegister() async {
-    final dio = Dio();
-    var logger = Logger();
-    try {
-      final response = await dio.post(
-        'https://mobileapis.manpits.xyz/api/register',
-        data: {
-          'name': _usernameController.text,
-          'email': _emailController.text,
-          'password': _passwordController.text,
-        },
-      );
-      logger.i(response);
-      if (response.statusCode == 200) {
-        try {
-          final response = await dio.post(
-            'https://mobileapis.manpits.xyz/api/login',
-            data: {
-              'email': _emailController.text,
-              'password': _passwordController.text,
-            },
-          );
-          logger.i(response);
-          if (response.statusCode == 200) {
-            myStorage.write('token', response.data['data']['token']);
-            Navigator.pushReplacementNamed(context, '/homePage');
-          }
-        } on DioError catch (e) {
-          handleDioError(e);
-        }
-      }
-    } on DioError catch (e) {
-      handleDioError(e);
-    }
-  }
-
-  void handleDioError(DioError e) {
-    setState(() {
-      _invalidInput = true;
-      Timer(const Duration(seconds: 3), () {
-        setState(() {
-          _invalidInput = false;
-        });
-      });
-      _warningText = e.response?.data['message'] ?? 'Something went wrong';
-    });
-    var logger = Logger();
-    logger.e(e);
-  }
-
-  bool emailValidator() {
-    if (!EmailValidator.validate(_emailController.text)) {
-      setState(() {
-        _invalidInput = true;
-        _invalidEmail = true;
-        Timer(const Duration(seconds: 3), () {
-          setState(() {
-            _invalidInput = false;
-            _invalidEmail = false;
-          });
-        });
-        _warningText = "Please enter a valid email";
-      });
-      return false;
-    }
-    return true;
-  }
-
-  bool passwordValidator() {
-    if (_passwordController.text.isEmpty ||
-        _passwordController.text.length < 6 ||
-        _passwordController.text.contains(RegExp(r'[0-9]')) == false ||
-        _passwordController.text.contains(RegExp(r'[A-Z]')) == false ||
-        _passwordController.text.contains(RegExp(r'[a-z]')) == false ||
-        _passwordController.text.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]')) ==
-            false ||
-        _passwordController.text != _confirmPasswordController.text) {
-      setState(() {
-        _invalidInput = true;
-        _invalidPassword = true;
-        Timer(const Duration(seconds: 3), () {
-          setState(() {
-            _invalidInput = false;
-            _invalidPassword = false;
-          });
-        });
-        _warningText = "Invalid Password";
-      });
-      return false;
-    }
-    return true;
-  }
-
-  void swapPasswordVisibility() {
-    setState(() {
-      _passwordVisible = !_passwordVisible;
-    });
-  }
-
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(17, 17, 17, 1),
+      appBar: AppBar(
+        title: const Text(
+          'Sign Up',
+          style: TextStyle(fontFamily: 'Poppins'),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.pink[100],
+      ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 84),
-              SvgPicture.asset(
-                'lib/asset/image/log-in.svg',
-                semanticsLabel: 'Hero Image',
-                height: 200,
-                width: 200,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 24),
-                child: Text(
-                  'Get Started',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Montserrat',
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: TextField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                          labelText: 'Name',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          enabledBorder: _invalidUsername
-                              ? const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16)),
-                                )
-                              : const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16)),
-                                ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(215, 252, 112, 1)),
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.white,
-                            ),
-                            onPressed: swapPasswordVisibility,
-                          ),
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          enabledBorder: _invalidEmail
-                              ? const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16)),
-                                )
-                              : const OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(16)),
-                                ),
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Color.fromRGBO(215, 252, 112, 1)),
-                            borderRadius: BorderRadius.all(Radius.circular(16)),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.white,
-                            ),
-                            onPressed: swapPasswordVisibility,
-                          ),
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24),
-                      child: TextField(
-                        controller: _confirmPasswordController,
-                        obscureText: !_passwordVisible,
-                        decoration: InputDecoration(
-                          labelText: 'Confirm Password',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          enabledBorder: _invalidPassword
-                              ? OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.red),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(16)),
-                                )
-                              : OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.grey),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(16)),
-                                ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                                color: Color.fromRGBO(215, 252, 112, 1)),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _passwordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: Colors.white,
-                            ),
-                            onPressed: swapPasswordVisibility,
-                          ),
-                        ),
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Visibility(
-                visible: _invalidInput,
-                child: Container(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Center(
-                    child: Text(
-                      _warningText,
-                      style: const TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: GestureDetector(
-                  onTap: onCreateAccountTap,
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color.fromRGBO(215, 252, 112, 1),
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 114),
-                    child: const Text(
-                      'Create Account',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color.fromRGBO(27, 32, 51, 1),
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Montserrat',
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 20.0),
+            Image.asset(
+              // 'image/profile.png',
+              height: 200,
+              width: 200,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    'Already have an account?',
-                    style: TextStyle(
-                      color: Colors.grey,
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      prefixIcon: const Icon(Icons.email),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
                     ),
                   ),
-                  TextButton(
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'No Telp',
+                      prefixIcon: const Icon(Icons.call),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      prefixIcon: const Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      prefixIcon: const Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Confirm Password',
+                      prefixIcon: const Icon(Icons.lock),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      labelStyle: const TextStyle(
+                        fontFamily: 'Poppins',
+                      ),
+                    ),
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 20.0),
+                  ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => LoginPage(),
-                        ),
+                            builder: (context) => const HomePage()),
                       );
                     },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.pink[100]!),
+                      minimumSize: MaterialStateProperty.all(const Size(0, 50)),
+                    ),
                     child: const Text(
-                      'Sign In',
+                      'Sign Up',
                       style: TextStyle(
-                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins',
                       ),
                     ),
-                  )
+                  ),
+                  Column(
+                    children: [
+                      // Widget lainnya
+                      const SizedBox(height: 20.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "Already have an account?",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontFamily: 'Poppins',
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()));
+                            },
+                            child: const Text(
+                              "Sign In",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Poppins',
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ],
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

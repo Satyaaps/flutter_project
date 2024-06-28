@@ -56,24 +56,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(17, 17, 17, 1),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.people),
-            label: 'Team',
+            label: 'ANGGOTA',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'PROFIL',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
+        selectedItemColor: Color.fromARGB(255, 255, 255, 0),
         onTap: navigateBottomBar,
+        backgroundColor: Color.fromARGB(86, 0, 0, 0),
       ),
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(0, 0, 0, 1),
+        backgroundColor: Color.fromARGB(255, 0, 0, 0),
         leading: Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -82,9 +83,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         title: const Text(
-          'Firstore',
+          'MANPITSSS',
           style: TextStyle(
-            color: Colors.white,
+            color: Color.fromARGB(255, 255, 255, 0),
           ),
         ),
       ),
@@ -94,9 +95,9 @@ class _HomePageState extends State<HomePage> {
           children: [
             const DrawerHeader(
               child: Text(
-                'Firstore',
+                'MANPITSSS',
                 style: TextStyle(
-                  color: Color.fromRGBO(215, 252, 112, 1),
+                  color: Color.fromARGB(255, 255, 255, 0),
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
@@ -108,12 +109,8 @@ class _HomePageState extends State<HomePage> {
               text: 'Home',
             ),
             _buildDrawerItem(
-              icon: Icons.search,
-              text: 'Search',
-            ),
-            _buildDrawerItem(
-              icon: Icons.settings,
-              text: 'Settings',
+              icon: Icons.file_copy,
+              text: 'Transaksi',
             ),
             GestureDetector(
               onTap: goLogOut,
@@ -133,8 +130,8 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        iconColor: Colors.white,
-        textColor: Colors.white,
+        iconColor: Color.fromARGB(255, 255, 255, 0),
+        textColor: Color.fromARGB(255, 255, 255, 0),
         leading: Icon(icon),
         title: Text(text),
       ),

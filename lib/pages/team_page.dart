@@ -72,10 +72,17 @@ class _TeamPageState extends State<TeamPage> {
   void _showMemberDetail(TeamMember member) {
     showModalBottomSheet(
       context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.25)),
+      ),
       builder: (context) {
         return SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.all(20),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+              color: Colors.white,
+            ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,13 +118,13 @@ class _TeamPageState extends State<TeamPage> {
 
   Widget _buildDetailRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             label + ':',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Text(value),
         ],
@@ -196,14 +203,18 @@ class TextInput extends StatelessWidget {
       decoration: InputDecoration(
         border: const OutlineInputBorder(),
         hintText: hint,
+        hintStyle: const TextStyle(color: Colors.grey),
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: Colors.white),
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide:
               BorderSide(color: Color.fromARGB(255, 154, 210, 2), width: 2),
         ),
+        filled: true,
+        fillColor: Colors.white, // Background color of the input field
       ),
+      style: const TextStyle(color: Colors.black), // Text color
     );
   }
 }
@@ -352,8 +363,8 @@ class _EditMemberButtonState extends State<EditMemberButton> {
                       editMember(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Color.fromARGB(255, 154, 210, 2), // Warna yang diubah
+                      backgroundColor: const Color.fromARGB(
+                          255, 154, 210, 2), // Warna yang diubah
                       foregroundColor: Colors.white,
                       minimumSize: const Size.fromHeight(50),
                       shape: const RoundedRectangleBorder(
@@ -404,15 +415,10 @@ class AddMemberButton extends StatefulWidget {
 
 class _AddMemberButtonState extends State<AddMemberButton> {
   final String _apiUrl = "https://mobileapis.manpits.xyz/api/anggota";
-
   final myStorage = GetStorage();
-
   final TextEditingController idController = TextEditingController();
-
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController addressController = TextEditingController();
-
   final TextEditingController telephoneController = TextEditingController();
   DateTime? selectedDate;
 
@@ -467,18 +473,13 @@ class _AddMemberButtonState extends State<AddMemberButton> {
           insetPadding: EdgeInsets.zero,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.black,
               borderRadius: BorderRadius.circular(10),
             ),
             height: 550,
             width: 350,
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 20,
-                bottom: 20,
-                right: 20,
-                left: 20,
-              ),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -486,7 +487,7 @@ class _AddMemberButtonState extends State<AddMemberButton> {
                     "New Team Member",
                     style: TextStyle(
                       fontSize: 18,
-                      color: Color.fromARGB(255, 154, 210, 2),
+                      color: Colors.yellow,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -498,34 +499,38 @@ class _AddMemberButtonState extends State<AddMemberButton> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Date of Birth"),
+                      const Text(
+                        "Date of Birth",
+                        style: TextStyle(color: Colors.white),
+                      ),
                       ElevatedButton(
                         onPressed: () async {
                           final DateTime? dateTime = await showDatePicker(
                             context: context,
                             firstDate: DateTime(1900),
                             lastDate: DateTime(2050),
+                            initialDate: DateTime.now(),
                           );
                           if (dateTime != null) {
                             setState(() {
-                              // Lakukan sesuatu dengan tanggal yang dipilih, misalnya menyimpannya ke dalam variabel atau menampilkan di layar
-                              print('Selected date: $dateTime');
                               selectedDate = dateTime;
                             });
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
+                          backgroundColor: Colors.yellow,
                           foregroundColor: Colors.black,
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             side: BorderSide(color: Colors.black),
                           ),
                         ),
-                        child: Text(selectedDate != null
-                            ? selectedDate.toString()
-                            : "Pick a Date"),
-                      )
+                        child: Text(
+                          selectedDate != null
+                              ? "${selectedDate!.toLocal()}".split(' ')[0]
+                              : "Pick a Date",
+                        ),
+                      ),
                     ],
                   ),
                   ElevatedButton(
@@ -533,8 +538,8 @@ class _AddMemberButtonState extends State<AddMemberButton> {
                       postMember(context);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 154, 210, 2),
-                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.yellow,
+                      foregroundColor: Colors.black,
                       minimumSize: const Size.fromHeight(50),
                       shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -544,6 +549,7 @@ class _AddMemberButtonState extends State<AddMemberButton> {
                       "Save Member",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                     ),
                   ),
